@@ -7,7 +7,8 @@ if (isset($_GET['file']))
     $_GET['file'] = intval($_GET['file']);
 
 //DELETE BUTTON IN ITEMS VIEW
-if (isset($_GET['delete']) && isset($_GET['file']) && isset($_SESSION['permissions']) && $_SESSION['permissions'] == 'A') {
+//User permissions changed from A to U to allow regular users to edit
+if (isset($_GET['delete']) && isset($_GET['file']) && isset($_SESSION['permissions']) && $_SESSION['permissions'] == 'U') {
     database_connect(IL_DATABASE_PATH, 'library');
     $error = null;
     $error = delete_record($dbHandle, $_GET['file']);
@@ -176,8 +177,9 @@ if (empty($export_files))
                 <i class="fa fa-print"></i><br>Print
             </div>
             <?php
+        //User permissions changed from A to U to allow regular users to edit
             if (isset($_SESSION['auth'])) {
-                if ($_SESSION['permissions'] == 'A') {
+                if ($_SESSION['permissions'] == 'U') {
 
                     ?>
                     <div id="deletebutton" title="Permanently delete this record (Del)">
